@@ -23,6 +23,9 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/eShop/Resources/Css/style.css">
 
+    <script src="/eShop/Resources/Js/app.js" defer></script>
+
+
 
 </head>
 
