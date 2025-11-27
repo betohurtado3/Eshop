@@ -1,4 +1,5 @@
 <?php
+
 $title = "Inicio - Minerva Streetwear";
 
 require "../Layouts/header.php";
@@ -8,6 +9,10 @@ require "../Layouts/navbar.php";
 $colecciones = include "../../Resources/Getters/getCollections.php";
 $productos = include "../../Resources/Getters/getProductos.php";
 
+if (!isset($_SESSION['Id']) || $_SESSION['Rol'] !== 'Admin') {
+    header("Location: /index.php");
+    exit;
+}
 ?>
 <div class="container py-5">
     <!-- HERO SECTION -->
