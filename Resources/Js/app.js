@@ -1,4 +1,3 @@
-
 // Codigo para abrir modal de login y registro
 document.addEventListener("DOMContentLoaded", () => {
   const btnLogin = document.getElementById("btnShowLogin");
@@ -15,33 +14,30 @@ document.addEventListener("DOMContentLoaded", () => {
     registerForm.classList.remove("d-none");
     loginForm.classList.add("d-none");
   });
-
-
-
 });
 
 function showLogin() {
-  document.getElementById('authOptions').classList.add('d-none');
-  document.getElementById('loginForm').classList.remove('d-none');
-  document.getElementById('registerForm').classList.add('d-none');
+  document.getElementById("authOptions").classList.add("d-none");
+  document.getElementById("loginForm").classList.remove("d-none");
+  document.getElementById("registerForm").classList.add("d-none");
 
-  document.getElementById('iconUser').classList.remove('d-none');
-  document.getElementById('iconPlus').classList.add('d-none');
+  document.getElementById("iconUser").classList.remove("d-none");
+  document.getElementById("iconPlus").classList.add("d-none");
 }
 
 function showRegister() {
-  document.getElementById('authOptions').classList.add('d-none');
-  document.getElementById('registerForm').classList.remove('d-none');
-  document.getElementById('loginForm').classList.add('d-none');
+  document.getElementById("authOptions").classList.add("d-none");
+  document.getElementById("registerForm").classList.remove("d-none");
+  document.getElementById("loginForm").classList.add("d-none");
 
-  document.getElementById('iconUser').classList.remove('d-none');
-  document.getElementById('iconPlus').classList.remove('d-none');
+  document.getElementById("iconUser").classList.remove("d-none");
+  document.getElementById("iconPlus").classList.remove("d-none");
 }
 
 function backToOptions() {
-  document.getElementById('loginForm').classList.add('d-none');
-  document.getElementById('registerForm').classList.add('d-none');
-  document.getElementById('authOptions').classList.remove('d-none');
+  document.getElementById("loginForm").classList.add("d-none");
+  document.getElementById("registerForm").classList.add("d-none");
+  document.getElementById("authOptions").classList.remove("d-none");
 
-  document.getElementById('iconPlus').classList.add('d-none');
+  document.getElementById("iconPlus").classList.add("d-none");
 }

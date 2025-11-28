@@ -46,32 +46,42 @@ $productos = include __DIR__ . "/Resources/Getters/getProductos.php";
     </section>
 
     <!-- SECCIÓN OFERTAS Y DESCUENTOS -->
-    <section class="py-5 bg-light text-dark">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Ofertas y Descuentos</h2>
-                <p class="text-muted">Aprovecha promociones especiales</p>
+<div class="row g-4">
+    <?php foreach ($productos as $prod): ?>
+
+        <?php 
+            $rutaImagen = "/eShop/Resources/img/Products/" . ($prod['Imagen'] ?? '');
+            $imagenFinal = (!empty($prod['Imagen']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $rutaImagen))
+                ? $rutaImagen
+                : "/eShop/Resources/img/no-image.jpg"; // fallback
+        ?>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="product-card p-3 border rounded text-center">
+
+                <!-- IMAGEN REAL -->
+                <img src="<?= $imagenFinal ?>" 
+                     class="img-fluid mb-3 product-img"
+                     alt="<?= htmlspecialchars($prod['Nombre']) ?>">
+
+                <h5 class="fw-semibold text-light">
+                    <?= htmlspecialchars($prod['Nombre']) ?>
+                </h5>
+
+                <p class="text-light">
+                    $<?= number_format($prod['Precio'], 2) ?> MXN
+                </p>
+
+                <button class="btn btn-outline-light btn-sm">
+                    Ver
+                </button>
+
             </div>
-
-            <div class="row g-4">
-                <?php foreach ($productos as $prod): ?>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product-card p-3 border rounded text-center">
-
-                            <!-- Aquí va una imagen, pero si aún no tienes tabla de imágenes, ponemos placeholder -->
-                            <div class="placeholder-img mb-3" style="height:160px; background:#eaeaea;"></div>
-
-                            <h5 class="fw-semibold"><?= htmlspecialchars($prod['Nombre']) ?></h5>
-                            <p class="text-muted">$<?= number_format($prod['Precio'], 2) ?> MXN</p>
-
-                            <button class="btn btn-outline-dark btn-sm">Ver</button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
         </div>
-    </section>
+
+    <?php endforeach; ?>
+</div>
+
 
 </div>
 

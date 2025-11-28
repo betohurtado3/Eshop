@@ -30,13 +30,21 @@ $stmt->execute();
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$usuario) {
-    die("Usuario o correo no encontrado.");
+    $_SESSION['Mensaje'] = "Usuario o correo no encontrado.";
+    $_SESSION['TipoMensaje'] = "danger";
+    $_SESSION['MostrarAuthModal'] = "login";  // 👈 bandera
+    header("Location: /eShop/index.php");
+    exit;
 }
 
-// ✅ Verificar contraseña
 if (!password_verify($password, $usuario["Contrasena"])) {
-    die("Contraseña incorrecta.");
+    $_SESSION['Mensaje'] = "Contraseña incorrecta.";
+    $_SESSION['TipoMensaje'] = "danger";
+    $_SESSION['MostrarAuthModal'] = "login";  // 👈 bandera
+    header("Location: /eShop/index.php");
+    exit;
 }
+
 
 // ✅ Crear sesión segura
 $_SESSION["Id"]      = $usuario["Id"];

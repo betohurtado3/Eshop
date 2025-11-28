@@ -50,7 +50,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <?php if ($_SESSION['Rol'] === 'Admin'): ?>
                             <li>
-                                <a class="dropdown-item" href="/Views/Admin/dashboard.php">
+                                <a class="dropdown-item" href="/eShop/Views/Admin/dashboard.php">
                                     <i class="bi bi-speedometer2 me-2"></i> Panel Admin
                                 </a>
                             </li>
@@ -88,6 +88,17 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <div class="modal-body">
+                <?php if (isset($_SESSION['Mensaje'])): ?>
+                    <div class="alert alert-<?php echo $_SESSION['TipoMensaje']; ?> text-center mb-3" role="alert">
+                        <?php echo $_SESSION['Mensaje']; ?>
+                    </div>
+                <?php
+                    unset($_SESSION['Mensaje']);
+                    unset($_SESSION['TipoMensaje']);
+                endif;
+                ?>
+
+
                 <!-- ICONO SUPERIOR DEL MODAL -->
                 <div class="text-center mb-4">
                     <div id="modalIcon" class="modal-icon mx-auto">
@@ -154,3 +165,34 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </div>
 </div>
+
+<?php
+// 👇 leemos la bandera y luego la limpiamos
+$mostrarAuthModal = $_SESSION['MostrarAuthModal'] ?? null;
+unset($_SESSION['MostrarAuthModal']);
+?>
+
+<?php if ($mostrarAuthModal === "login"): ?>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const authModalEl = document.getElementById("authModal");
+    if (!authModalEl) return;
+
+    // Asegúrate de que Bootstrap JS ya esté cargado antes de este script
+    const authModal = new bootstrap.Modal(authModalEl);
+    authModal.show();
+
+    // Mostrar directamente el formulario de login (y ocultar opciones)
+    if (typeof showLogin === "function") {
+        showLogin();
+    } else {
+        // Por si acaso showLogin no está disponible
+        const authOptions = document.getElementById("authOptions");
+        const loginForm  = document.getElementById("loginForm");
+
+        if (authOptions) authOptions.classList.add("d-none");
+        if (loginForm)   loginForm.classList.remove("d-none");
+    }
+});
+</script>
+<?php endif; ?>
