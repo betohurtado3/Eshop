@@ -23,9 +23,10 @@ $productos = require __DIR__ . "/../Resources/Getters/getProductos.php";
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="product-card">
 
-                        <!-- Imagen temporal (luego se conecta a la tabla Imagenes) -->
                         <div class="product-img">
-                            <div class="placeholder-img"></div>
+                            <img
+                                src="/eShop/Resources/Img/Products/<?= htmlspecialchars($producto['Imagen']) ?>"
+                                alt="<?= htmlspecialchars($producto['Nombre']) ?>">
                         </div>
 
                         <div class="product-info">
@@ -33,7 +34,7 @@ $productos = require __DIR__ . "/../Resources/Getters/getProductos.php";
                                 <?= htmlspecialchars($producto['Nombre']) ?>
                             </h5>
 
-                            <p class="product-collection ">
+                            <p class="product-collection">
                                 <?= htmlspecialchars($producto['Coleccion']) ?>
                             </p>
 
@@ -41,13 +42,15 @@ $productos = require __DIR__ . "/../Resources/Getters/getProductos.php";
                                 $<?= number_format($producto['Precio'], 2) ?> MXN
                             </div>
 
-                            <button class="btn btn-outline-light w-100 mt-3 btn-sm">
-                                Ver producto
-                            </button>
+                            <a class="btn btn-outline-light w-100 mt-3 btn-sm"
+                                href="/eShop/Views/producto.php?Id=<?= $producto['Id'] ?>">
+                                Detalles
+                            </a>
                         </div>
 
                     </div>
                 </div>
+
 
             <?php endforeach; ?>
         <?php else : ?>

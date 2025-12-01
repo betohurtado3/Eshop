@@ -11,7 +11,6 @@ if (session_status() === PHP_SESSION_NONE) {
         <ul class="nav-left">
             <li><a href="/eShop/index.php">Inicio</a></li>
             <li><a href="/eShop/Views/colecciones.php">Colecciones</a></li>
-            <li><a href="#">Descuentos</a></li>
             <li><a href="/eShop/Views/productos.php">Productos</a></li>
         </ul>
 

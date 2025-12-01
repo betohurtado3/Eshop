@@ -20,17 +20,33 @@ $colecciones = require __DIR__ . "/../Resources/Getters/getCollections.php";
         <?php if (!empty($colecciones)): ?>
             <?php foreach ($colecciones as $col): ?>
                 <div class="col-md-4">
+
+
                     <div class="collection-card-dark p-4 h-100 text-center">
+
+                        <!-- IMAGEN DE LA COLECCIÓN -->
+                        <?php if (!empty($col['Imagen'])): ?>
+                            <img
+                                src="/eShop/Resources/img/Coleccions/<?= htmlspecialchars($col['Imagen']); ?>"
+                                class="img-fluid mb-3 rounded"
+                                style="max-height:200px; object-fit:cover;"
+                                alt="<?= htmlspecialchars($col['Nombre']); ?>">
+                        <?php else: ?>
+                            <div class="mb-3" style="height:200px; background:#222;"></div>
+                        <?php endif; ?>
+
                         <h4 class="mb-2"><?= htmlspecialchars($col['Nombre']) ?></h4>
+
                         <p class="small text-secondary">
                             <?= htmlspecialchars($col['Descripcion']) ?>
                         </p>
 
-                        <a href="productos.php?coleccion=<?= $col['Id'] ?>" 
-                           class="btn btn-outline-light mt-3">
-                           Ver colección
+                        <a href="coleccion.php?Id=<?= $col['Id'] ?>" class="btn btn-outline-light mt-3">
+                            Ver colección
                         </a>
+
                     </div>
+
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

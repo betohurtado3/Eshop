@@ -72,9 +72,7 @@ $productos = include __DIR__ . "/Resources/Getters/getProductos.php";
                     $<?= number_format($prod['Precio'], 2) ?> MXN
                 </p>
 
-                <button class="btn btn-outline-light btn-sm">
-                    Ver
-                </button>
+                    <a class="btn btn-outline-light btn-sm" href="/eShop/Views/producto.php?Id=<?= $prod['Id'] ?>">Detalles</a>
 
             </div>
         </div>
