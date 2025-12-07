@@ -9,7 +9,6 @@ $query = $conn->prepare("
         c.Estado,
         c.FechaCreacion,
 
-        -- Traemos SOLO UNA imagen de la colección
         (
             SELECT i.Nombre
             FROM Imagenes i

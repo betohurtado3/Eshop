@@ -36,14 +36,17 @@ require "../../Layouts/navbar.php";
         ?>
     <?php endif; ?>
 
+
     <!-- ✅ COLLAPSE: CREAR COLECCIÓN -->
     <div class="collapse mb-4" id="formNuevaColeccion">
         <div class="card shadow-sm border-0">
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Nueva Colección</h5>
 
-                <form action="store.php" method="POST">
+                <!-- IMPORTANTE: enctype -->
+                <form action="store.php" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
+
                         <div class="col-md-6">
                             <input type="text" name="Nombre" class="form-control" placeholder="Nombre de la colección" required>
                         </div>
@@ -59,17 +62,31 @@ require "../../Layouts/navbar.php";
                             <textarea name="Descripcion" class="form-control" rows="3" placeholder="Descripción"></textarea>
                         </div>
 
+                        <!-- ✅ INPUT IMAGEN -->
+                        <div class="col-12">
+                            <label class="fw-semibold">Imagen de la colección</label>
+                            <input
+                                type="file"
+                                name="Imagen"
+                                class="form-control"
+                                accept="image/*"
+                                required>
+                            <small class="text-muted">Formato JPG, PNG, WEBP</small>
+                        </div>
+
                         <div class="col-12 text-end">
                             <button type="submit" class="btn btn-success">
                                 <i class="bi bi-save"></i> Guardar
                             </button>
                         </div>
+
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+
 
     <!-- ✅ TABLA DE COLECCIONES -->
     <div class="card shadow-sm border-0">
@@ -78,6 +95,7 @@ require "../../Layouts/navbar.php";
             <table class="table table-hover table-bordered align-middle">
                 <thead class="table-dark">
                     <tr>
+                        <th width="70">Img</th>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
@@ -91,6 +109,20 @@ require "../../Layouts/navbar.php";
 
                     <?php foreach ($colecciones as $c): ?>
                         <tr>
+
+                            <!-- ✅ COLUMNA IMAGEN MINI -->
+                            <td class="text-center">
+                                <?php if (!empty($c['Imagen'])): ?>
+                                    <div class="thumb-wrapper">
+                                        <img style="max-width: 60px; border-radius: 8px;"
+                                        src="/eShop/Resources/Img/Colecciones/<?= htmlspecialchars($c['Imagen']); ?>">
+                                    </div>
+                                <?php else: ?>
+                                    <span class="text-muted small">Sin img</span>
+                                <?php endif; ?>
+                            </td>
+
+
                             <td><?= $c['Id']; ?></td>
                             <td><?= htmlspecialchars($c['Nombre']); ?></td>
                             <td><?= htmlspecialchars($c['Descripcion']); ?></td>
@@ -106,7 +138,7 @@ require "../../Layouts/navbar.php";
                             <td><?= $c['FechaCreacion']; ?></td>
 
                             <td>
-                                <!-- EDITAR CON COLLAPSE -->
+                                <!-- EDITAR -->
                                 <button class="btn btn-sm btn-outline-primary"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#edit<?= $c['Id']; ?>">
@@ -115,18 +147,19 @@ require "../../Layouts/navbar.php";
 
                                 <!-- ELIMINAR -->
                                 <a href="delete.php?id=<?= $c['Id']; ?>"
-                                   class="btn btn-sm btn-outline-danger"
-                                   onclick="return confirm('¿Eliminar colección?')">
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar colección?')">
                                     <i class="bi bi-trash">Eliminar</i>
                                 </a>
                             </td>
                         </tr>
 
+
                         <!-- ✅ COLLAPSE EDITAR -->
                         <tr class="collapse bg-light" id="edit<?= $c['Id']; ?>">
                             <td colspan="6">
 
-                                <form action="update.php" method="POST" class="p-3">
+                                <form action="update.php" method="POST" class="p-3" enctype="multipart/form-data">
                                     <input type="hidden" name="Id" value="<?= $c['Id']; ?>">
 
                                     <div class="row g-3">
@@ -147,7 +180,24 @@ require "../../Layouts/navbar.php";
                                                 value="<?= htmlspecialchars($c['Descripcion']); ?>">
                                         </div>
 
-                                        <div class="col-12 text-end">
+                                        <!-- 🖼️ PREVIEW + INPUT IMAGEN -->
+                                        <div class="col-md-6 mt-3">
+                                            <?php if (!empty($c['Imagen'])): ?>
+                                                <p class="mb-1 small text-muted">Imagen actual:</p>
+                                                <img src="/eShop/Resources/Img/Coleccions/<?= htmlspecialchars($c['Imagen']); ?>"
+                                                    alt="Imagen colección"
+                                                    style="max-width: 100%; border-radius: 8px;">
+                                            <?php else: ?>
+                                                <p class="mb-1 small text-muted">Esta colección aún no tiene imagen.</p>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <div class="col-md-6 mt-3">
+                                            <label class="form-label small">Cambiar imagen</label>
+                                            <input type="file" name="NuevaImagen" class="form-control" accept="image/*">
+                                        </div>
+
+                                        <div class="col-12 text-end mt-3">
                                             <button class="btn btn-success btn-sm">
                                                 <i class="bi bi-save"></i> Actualizar
                                             </button>
@@ -155,8 +205,15 @@ require "../../Layouts/navbar.php";
                                     </div>
                                 </form>
 
+
                             </td>
                         </tr>
+
+                        <script>
+                            document.querySelector("input[name='NuevaImagen'][form='editForm<?= $c['Id']; ?>']")
+                        </script>
+
+
                     <?php endforeach; ?>
 
                 </tbody>

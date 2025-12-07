@@ -27,7 +27,7 @@ $colecciones = require __DIR__ . "/../Resources/Getters/getCollections.php";
                         <!-- IMAGEN DE LA COLECCIÓN -->
                         <?php if (!empty($col['Imagen'])): ?>
                             <img
-                                src="/eShop/Resources/img/Coleccions/<?= htmlspecialchars($col['Imagen']); ?>"
+                                src="/eShop/Resources/img/Colecciones/<?= htmlspecialchars($col['Imagen']); ?>"
                                 class="img-fluid mb-3 rounded"
                                 style="max-height:200px; object-fit:cover;"
                                 alt="<?= htmlspecialchars($col['Nombre']); ?>">
